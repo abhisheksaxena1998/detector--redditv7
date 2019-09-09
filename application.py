@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 import pickle
 import re
 import flask
@@ -54,7 +54,8 @@ def register():
         # Fit the CountVectorizer to the training data
         vect = CountVectorizer().fit(X_train)
         X_train_vectorized = vect.transform(X_train)
-       
+        model = RandomForestClassifier(n_estimators=500, criterion='entropy')
+        model.fit(X_train_vectorized, y_train)
         reddit = praw.Reddit(client_id='WBTxS7rybznf7Q', client_secret='vJUTUflXITBsQMxeviOfG8mCZoA', user_agent='projectreddit', username='Mysterious_abhE', password='Saxena0705')
         #url="https://www.reddit.com/r/MapPorn/comments/a3p0uq/an_image_of_gps_tracking_of_multiple_wolves_in/"
         submission = reddit.submission(url=nm)
@@ -115,5 +116,5 @@ def register():
         #print (load_lr_model.predict(vect.transform([tr])))
 
 
-    return flask.render_template('result.html',prediction=flairs[int(load_lr_model.predict(vect.transform([processed_tweet])))],url=mm)
+    return flask.render_template('result.html',prediction=flairs[int(model.predict(vect.transform([processed_tweet])))],url=mm)
         
