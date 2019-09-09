@@ -47,7 +47,7 @@ def register():
         df1=pd.read_csv("https://raw.githubusercontent.com/abhisheksaxena1998/detector--redditv7/master/cleaned_reddit_alphabetav5.csv")
         df1.dropna(inplace=True)
         df1.columns=['index','combined','flair']  
-        print (df1.head())
+        #print (df1.head())
 
         X_train, X_test, y_train, y_test = train_test_split(df1['combined'],df1['flair'],random_state=0)
 
@@ -108,11 +108,11 @@ def register():
     
         #processed_tweets.append(processed_tweet)
     
-        print ((processed_tweet))            #print(model.predict(vect.transform([tr])))
-        filename='combined_modelv5_updated.pkl'
+        #print ((processed_tweet))            #print(model.predict(vect.transform([tr])))
+        #filename='combined_modelv5_updated.pkl'
 
         #pickle.dump(model, open(filename, 'wb'))
-        load_lr_model =pickle.load(open(filename, 'rb'))
+        #load_lr_model =pickle.load(open(filename, 'rb'))
         #print (load_lr_model.predict(vect.transform([tr])))
 
 
